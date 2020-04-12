@@ -2,9 +2,52 @@
 
 @if (IsAuthenticate)
 {
-    <PhotoViewer Links="@VkService.GetInfo()"/>
+    <PhotoViewer Links="@VkService.GetInfo()" />
 }
 else
 {
     <h1>Please, log in!</h1>
+}
+
+<input id="input-file"  onpaste="paste(event, this);" width="100" />
+
+<input type="file" id="file"/>
+<img id="blah" src="#" alt="your image" />
+
+@code {
+    static System.Text.StringBuilder base64 = new System.Text.StringBuilder();
+    static int id = -1;
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        Task.Run(async () =>
+        {
+            while (true)
+            {
+                int? x = base64?.Length;
+                await Task.Delay(1000);
+            }
+        });
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+    [JSInvokable]
+    public static void ReturnArrayAsync(object jsbase64, int jsid, bool end)
+    {
+        if (jsid != id)
+        {
+            base64.Clear();
+            base64.Append(jsbase64);
+            id = jsid;
+        }
+        else
+        {
+            base64.Append(jsbase64);
+        }
+
+        if (end)
+        {
+
+        }
+    }
 }

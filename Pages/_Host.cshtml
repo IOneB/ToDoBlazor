@@ -32,5 +32,44 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        function preview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function chunkString(str, length) {
+            return str.match(new RegExp('.{1,' + length + '}', 'g'));
+        }
+
+        function getBase64(file) {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                let res = chunkString(reader.result, 32000);
+                id = 100;
+                for (var i = 0; i < res.length; i++) {
+                    DotNet.invokeMethodAsync('ToDoBlazor', 'ReturnArrayAsync', res[i], id, false);
+                }
+                DotNet.invokeMethodAsync('ToDoBlazor', 'ReturnArrayAsync', '', id, true);
+            };
+        }
+
+        function paste(event, source) {
+            var clipboardData = event.clipboardData
+            document.getElementById("file").files = clipboardData.files;
+            preview(document.getElementById("file"));
+
+            if(clipboardData.files[0])
+                getBase64(clipboardData.files[0]);
+        }
+    </script>
 </body>
 </html>
