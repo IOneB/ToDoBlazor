@@ -1,0 +1,12 @@
+@foreach (var item in Links
+    .Split('\n')
+    .Select(x => x.Split('!'))
+    .Select(x => (Id: x[0], Url: x[1])))
+{
+    <details>
+        <summary>Фото @item.Id</summary>
+        <img id="@item.Id" class="img-enlargable" src="@item.Url"  style="max-height:300px;" @onclick="() => Call(item.Url)"/>
+    </details>
+}
+
+<FullScreenViewer @ref="child"/>

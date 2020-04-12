@@ -1,0 +1,10 @@
+@page "/"
+
+@if (IsAuthenticate)
+{
+    <PhotoViewer Links="@VkService.GetInfo()"/>
+}
+else
+{
+    <h1>Please, log in!</h1>
+}

@@ -25,7 +25,6 @@ namespace ToDoBlazor
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddTransient<VkApiFactory>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

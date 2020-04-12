@@ -1,0 +1,18 @@
+@using ToDoBlazor.Services;
+
+<details style="color: #b3d7ff;">
+    <summary style="margin-left:0.5em;">Авторизация</summary>
+    <div style="margin-left:1em;">
+        <div>
+            <label for="login">Логин: </label>
+            <input type="text" id="login" name="login" @bind="login" />
+        </div>
+        <div>
+            <label for="password">Пароль: </label>
+            <input type="password" id="password" name="password" @bind="password" />
+        </div>
+        <button @onclick="Submit" style="float:right;margin-top:0.8em;margin-right:1em;" class="btn btn-info">Подтвердить</button>
+        </div>
+</details>
+
+

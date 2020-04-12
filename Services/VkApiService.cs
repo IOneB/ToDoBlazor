@@ -12,9 +12,14 @@ namespace ToDoBlazor.Services
 {
     public class VkApiService
     {
-        private readonly VkApi api;
+        private VkApi api;
 
-        public VkApiService(string login, string password)
+        public VkApiService()
+        {
+
+        }
+
+        public void Authorize(string login, string password)
         {
             api = new VkApi();
             api.Authorize(new ApiAuthParams
@@ -31,7 +36,7 @@ namespace ToDoBlazor.Services
             var res = api.Photo.Get(new PhotoGetParams { AlbumId = VkNet.Enums.SafetyEnums.PhotoAlbumType.Profile });
             var r = res.Select(x => (x.Sizes.FirstOrDefault(x => x.Type == PhotoSizeType.X).Url, x.Id));
 
-            return string.Join("\n", r.Select(x => $"{x.Id}-----{x.Item1}"));
+            return string.Join("\n", r.Select(x => $"{x.Id}!{x.Url}"));
         }
     }
 }

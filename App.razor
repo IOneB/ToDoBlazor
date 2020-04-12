@@ -1,6 +1,10 @@
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <CascadingValue Value="IsAuthenticate">
+            <CascadingValue Value="VkService">
+                <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            </CascadingValue>
+        </CascadingValue>
     </Found>
     <NotFound>
         <LayoutView Layout="@typeof(MainLayout)">
@@ -8,3 +12,8 @@
         </LayoutView>
     </NotFound>
 </Router>
+
+@code{
+    ToDoBlazor.Data.BoolRef IsAuthenticate = false;
+    ToDoBlazor.Services.VkApiService VkService = new Services.VkApiService();
+}

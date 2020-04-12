@@ -1,0 +1,28 @@
+<style>
+    #modal {
+        background: RGBA(0,0,0,.5) url(@Src) no-repeat center;
+        background-size: contain;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: 10000;
+        top: 0;
+        left: 0;
+        cursor: zoom-out
+    }
+</style>
+
+<div id="modal" @bind-hidden="@hidden" @bind-hidden:event="onchange" @onclick="() => ChangeState(Src, true)"></div>
+
+@code{
+    [Parameter]
+    public string Src { get; set; }
+    bool hidden = true;
+
+    public void ChangeState(string src, bool hidden)
+    {
+        this.hidden = hidden;
+        Src = src;
+        StateHasChanged();
+    }
+}
